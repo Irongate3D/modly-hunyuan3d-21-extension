@@ -1,0 +1,81 @@
+{
+  "id": "hunyuan3d-21",
+  "name": "Hunyuan3D 2.1",
+  "type": "model",
+  "source": "https://github.com/Irongate3D/modly-hunyuan3d-21-extension",
+  "description": "Hunyuan3D 2.1 full shape model (3.3B parameters). Higher quality geometry than Mini. Shape-only — no texture (no CUDA extensions required). AMD/DirectML compatible.",
+  "version": "1.0.0",
+  "author": "Irongate3D (based on Lightning Pixel Mini extension)",
+  "generator_class": "Hunyuan3D21Generator",
+  "tags": [
+    "image-to-3d",
+    "high-quality",
+    "amd",
+    "directml"
+  ],
+  "nodes": [
+    {
+      "id": "generate",
+      "name": "Generate Mesh",
+      "input": "image",
+      "output": "mesh",
+      "hf_repo": "tencent/Hunyuan3D-2",
+      "download_check": "hunyuan3d-dit-v2-0",
+      "hf_skip_prefixes": [
+        "hunyuan3d-dit-v2-0-fast/",
+        "hunyuan3d-dit-v2-0-turbo/",
+        "hunyuan3d-vae-v2-0-turbo/",
+        "hunyuan3d-vae-v2-0-withencoder/",
+        "hunyuan3d-paint-v2-0/",
+        "hunyuan3d-paint-v2-0-turbo/",
+        "hunyuan3d-delight-v2-0/"
+      ],
+      "params_schema": [
+        {
+          "id": "num_inference_steps",
+          "label": "Quality",
+          "type": "select",
+          "default": 30,
+          "options": [
+            { "value": 10, "label": "Fast" },
+            { "value": 30, "label": "Balanced" },
+            { "value": 50, "label": "High" }
+          ],
+          "tooltip": "Number of diffusion steps. More steps = better quality but slower."
+        },
+        {
+          "id": "octree_resolution",
+          "label": "Mesh Resolution",
+          "type": "select",
+          "default": 512,
+          "options": [
+            { "value": 256, "label": "Low" },
+            { "value": 380, "label": "Medium" },
+            { "value": 512, "label": "High" },
+            { "value": 768, "label": "Ultra (slow)" }
+          ],
+          "tooltip": "Octree resolution. Higher = more detail but slower. 512 recommended for 3D printing."
+        },
+        {
+          "id": "guidance_scale",
+          "label": "Guidance Scale",
+          "type": "float",
+          "default": 5.5,
+          "min": 1,
+          "max": 10,
+          "step": 0.5,
+          "tooltip": "Classifier-free guidance strength. Higher = closer to the input image."
+        },
+        {
+          "id": "seed",
+          "label": "Seed",
+          "type": "int",
+          "default": -1,
+          "min": -1,
+          "max": 4294967295,
+          "tooltip": "Seed for reproducibility. Set to -1 for a random seed."
+        }
+      ]
+    }
+  ]
+}
